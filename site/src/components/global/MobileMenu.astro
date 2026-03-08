@@ -31,7 +31,7 @@ function isActive(href: string): boolean {
 <!-- Mobile overlay -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-50 bg-cream/98 backdrop-blur-sm flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300"
+  class="fixed inset-0 z-50 bg-cream flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300"
   aria-hidden="true"
 >
   <button
@@ -76,6 +76,10 @@ function isActive(href: string): boolean {
     btn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
+
+  // Move overlay to document.body so it escapes the header's backdrop-filter
+  // containing block (backdrop-blur creates a new containing block for fixed elements)
+  if (menu) document.body.appendChild(menu);
 
   btn?.addEventListener('click', open);
   close?.addEventListener('click', shut);

@@ -66,6 +66,15 @@
   }
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Prose overrides for MDX content */
 .prose {
   --tw-prose-body: var(--color-charcoal);

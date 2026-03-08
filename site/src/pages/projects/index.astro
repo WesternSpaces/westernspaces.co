@@ -29,10 +29,10 @@ const categories = [
   <ImageHero title="Projects" subtitle="Housing research and planning across the Mountain West." image={heroImage} imagePosition="60% 65%" />
 
   <!-- Featured projects -->
-  <section class="bg-parchment py-16">
+  <section class="bg-parchment py-10 md:py-16">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-2xl font-serif font-bold text-bark mb-8">Featured</h2>
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="grid lg:grid-cols-3 gap-8">
         {featured.map((project) => (
           <Card href={`/projects/${project.id}`}>
             <CategoryBand category={project.data.category} />
@@ -52,25 +52,28 @@ const categories = [
   </section>
 
   <!-- All projects -->
-  <section class="max-w-6xl mx-auto px-6 py-16">
+  <section class="max-w-6xl mx-auto px-6 py-10 md:py-16">
     <p class="text-lg text-charcoal/80 leading-relaxed mb-10">
       A selection of recent work — from statutory housing needs assessments and development-specific market studies to housing action plans and statewide policy guidance.
     </p>
     <!-- Category filter -->
-    <div class="flex flex-wrap gap-2 mb-12" id="project-filters">
-      {categories.map(({ value, label }) => (
-        <button
-          data-filter={value}
-          class:list={[
-            'px-4 py-2 text-sm font-semibold rounded-full transition-colors',
-            value === 'all'
-              ? 'bg-gold text-snow'
-              : 'bg-parchment text-ridge hover:bg-sandstone/20',
-          ]}
-        >
-          {label}
-        </button>
-      ))}
+    <div class="relative mb-12">
+      <div class="flex gap-2 overflow-x-auto md:flex-wrap scrollbar-hide snap-x snap-mandatory" id="project-filters">
+        {categories.map(({ value, label }) => (
+          <button
+            data-filter={value}
+            class:list={[
+              'px-4 py-2 text-sm font-semibold rounded-full transition-colors shrink-0 snap-start',
+              value === 'all'
+                ? 'bg-gold text-snow'
+                : 'bg-parchment text-ridge hover:bg-sandstone/20',
+            ]}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-cream to-transparent pointer-events-none md:hidden"></div>
     </div>
 
     <!-- Project grid -->
