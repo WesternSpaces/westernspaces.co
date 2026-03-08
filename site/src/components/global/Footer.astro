@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import wsLogo from '../../assets/images/logo/ws-logo.png';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-bark text-cream/80">
+  <div class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-3 gap-12 mb-12">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-2">
+          <Image src={wsLogo} alt="" width={160} height={140} class="h-10 w-auto brightness-0 invert" />
+          <span class="font-serif text-xl font-bold text-cream">Western Spaces</span>
+        </div>
+        <p class="mt-3 text-sm leading-relaxed text-cream/60">
+          Housing research and community planning<br />for the Mountain West.
+        </p>
+      </div>
+
+      <!-- Tagline -->
+      <div class="flex items-center justify-center text-center">
+        <p class="text-sm font-serif font-semibold uppercase tracking-wider text-cream/60 leading-loose">
+          Analyze the Past<br />
+          Understand Today<br />
+          Plan for Tomorrow
+        </p>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-cream mb-4">Get in Touch</h3>
+        <ul class="space-y-2 text-sm text-cream/60">
+          <li>
+            <a id="footer-email" class="hover:text-gold transition-colors cursor-pointer">
+              <span class="opacity-0">Loading...</span>
+            </a>
+          </li>
+          <li>Salida, Colorado</li>
+        </ul>
+        <script>
+          const u = 'sarah'; const d = 'westernspaces.co';
+          const el = document.getElementById('footer-email');
+          if (el) { el.href = 'mailto:' + u + '@' + d; el.textContent = u + '@' + d; }
+        </script>
+      </div>
+    </div>
+
+    <div class="border-t border-cream/10 pt-8 text-center text-xs text-cream/60">
+      <p>&copy; {year} Western Spaces. All rights reserved.</p>
+      <p class="mt-1">All photographs by Sarah Brown McClain.</p>
+    </div>
+  </div>
+</footer>

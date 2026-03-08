@@ -1,0 +1,103 @@
+---
+/**
+ * Inline SVG location thumbnail for project cards.
+ * Renders a simplified state outline with a gold indicator:
+ *   - "dot": state outline + gold circle at coordinates
+ *   - "statewide": state outline filled gold at low opacity
+ *   - "region": state outline + semi-transparent gold area
+ */
+
+interface Props {
+  location: string;
+}
+
+const { location } = Astro.props;
+
+// State outlines as simplified SVG paths (viewBox 0 0 100 100)
+const states: Record<string, string> = {
+  CO: 'M10,15 L90,15 L90,85 L10,85 Z',
+  NM: 'M12,10 L88,10 L88,90 L30,90 L30,82 L12,82 Z',
+  MT: 'M5,30 L25,10 L95,10 L95,55 L85,90 L5,90 Z',
+};
+
+// type: dot | statewide | region
+// x,y: approximate position within 100x100 state viewBox
+// regionPath: SVG path for region areas
+interface LocationEntry {
+  state: string;
+  type: 'dot' | 'statewide' | 'region';
+  x?: number;
+  y?: number;
+  regionPath?: string;
+}
+
+const locations: Record<string, LocationEntry> = {
+  // Colorado dots (14)
+  'Ouray, Colorado':            { state: 'CO', type: 'dot', x: 30, y: 62 },
+  'Frisco, Colorado':           { state: 'CO', type: 'dot', x: 42, y: 42 },
+  'Summit County, Colorado':    { state: 'CO', type: 'dot', x: 42, y: 42 },
+  'Delta, Colorado':            { state: 'CO', type: 'dot', x: 28, y: 55 },
+  'Salida, Colorado':           { state: 'CO', type: 'dot', x: 42, y: 58 },
+  'Archuleta County, Colorado': { state: 'CO', type: 'dot', x: 26, y: 78 },
+  'Lake City, Colorado':        { state: 'CO', type: 'dot', x: 28, y: 65 },
+  'Telluride, Colorado':        { state: 'CO', type: 'dot', x: 24, y: 65 },
+  'Cortez, Colorado':           { state: 'CO', type: 'dot', x: 16, y: 78 },
+  'Gunnison County, Colorado':  { state: 'CO', type: 'dot', x: 34, y: 52 },
+
+  // Colorado statewide (3)
+  'Colorado (statewide)':       { state: 'CO', type: 'statewide' },
+
+  // Colorado region (1)
+  'Southwest Colorado':         { state: 'CO', type: 'region', regionPath: 'M10,50 L50,50 L50,85 L10,85 Z' },
+
+  // New Mexico (1)
+  'Los Alamos, New Mexico':     { state: 'NM', type: 'dot', x: 42, y: 30 },
+
+  // Montana (1)
+  'Columbia Falls, Montana':    { state: 'MT', type: 'dot', x: 22, y: 28 },
+};
+
+const loc = locations[location];
+const statePath = loc ? states[loc.state] : null;
+---
+
+{loc && statePath && (
+  <div class="bg-parchment/50 border-b border-parchment flex items-center justify-center py-3">
+    <svg
+      viewBox="0 0 100 100"
+      class="w-12 h-12 md:w-14 md:h-14"
+      aria-label={`Map: ${location}`}
+      role="img"
+    >
+      {/* State outline */}
+      <path
+        d={statePath}
+        fill={loc.type === 'statewide' ? 'var(--color-gold)' : 'none'}
+        fill-opacity={loc.type === 'statewide' ? 0.15 : 0}
+        stroke="var(--color-ridge)"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+
+      {/* Region highlight */}
+      {loc.type === 'region' && loc.regionPath && (
+        <path
+          d={loc.regionPath}
+          fill="var(--color-gold)"
+          fill-opacity="0.2"
+          stroke="var(--color-gold)"
+          stroke-width="0.5"
+          stroke-opacity="0.4"
+        />
+      )}
+
+      {/* Dot marker */}
+      {loc.type === 'dot' && loc.x !== undefined && loc.y !== undefined && (
+        <>
+          <circle cx={loc.x} cy={loc.y} r="5" fill="var(--color-gold)" opacity="0.25" />
+          <circle cx={loc.x} cy={loc.y} r="2.5" fill="var(--color-gold)" />
+        </>
+      )}
+    </svg>
+  </div>
+)}

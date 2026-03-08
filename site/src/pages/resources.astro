@@ -1,0 +1,131 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ImageHero from '../components/ui/ImageHero.astro';
+import Card from '../components/ui/Card.astro';
+import Button from '../components/ui/Button.astro';
+import heroImage from '../assets/images/hero/river-canyon.jpg';
+
+const interactiveTools = [
+  {
+    title: 'Bridging the Divide',
+    description: 'Interactive guide for rural communities navigating Colorado\'s housing legislation — strategy framework, funding roadmap, and readiness assessment for local governments.',
+    url: 'https://westernspaces.github.io/bridging-the-divide/',
+  },
+  {
+    title: 'Lake City Housing Strategy',
+    description: 'Community housing strategy with interactive data explorer for Hinsdale County.',
+    url: 'https://lakecityhousingstrategy.com/',
+  },
+  {
+    title: 'Archuleta County Interactive Housing Story',
+    description: 'Scrolling data story built for the Archuleta County Housing Action Plan — demographic trends, affordability gaps, and community priorities.',
+    url: 'https://westernspaces.github.io/archuleta-housing-story/housing_story.html',
+  },
+  {
+    title: 'Region 9 HNA Platform',
+    description: 'Automated housing needs assessment platform serving 21 jurisdictions across five counties in southwest Colorado.',
+    url: null,
+  },
+];
+
+const dataSources = [
+  {
+    title: 'Proposition 123 (DOLA)',
+    description: 'Colorado\'s affordable housing fund — compliance guidance, funding opportunities, training resources, and expedited review tools for local governments.',
+    url: 'https://cdola.colorado.gov/prop123',
+  },
+  {
+    title: 'Division of Housing — Developer Resources (DOH)',
+    description: 'Funding opportunities, applications, and program guidance for affordable housing developers, housing authorities, and community organizations in Colorado.',
+    url: 'https://doh.colorado.gov/i-build-affordable-housing',
+  },
+  {
+    title: 'Colorado Land Use & Housing Legislation (DOLA)',
+    description: 'Implementation guidance, compliance tools, and an interactive applicability map for Colorado\'s state land use and housing laws, including HNA and HAP requirements.',
+    url: 'https://dlg.colorado.gov/state-land-use-and-housing-legislation',
+  },
+  {
+    title: 'Housing Colorado Bill Tracker',
+    description: 'Live tracking of priority housing legislation in the Colorado General Assembly, maintained by Housing Colorado via FastDemocracy.',
+    url: 'https://fastdemocracy.com/shared-bills/?sharing-bill-list-id=w1gYUjsa8N2N',
+  },
+  {
+    title: 'Colorado HNA Data Bundles (SDO)',
+    description: 'Downloadable data bundles from the State Demography Office — demographic, economic, and housing reports packaged by county, municipality, or region for housing needs assessments.',
+    url: 'https://coloradodemography.github.io/new_website/assets/lookups/dashboard_lookup.html',
+  },
+  {
+    title: 'Ribbon Demographics (HISTA)',
+    description: 'Household distribution by AMI level for any geography in the US — the primary tool for estimating income-qualified demand in housing needs assessments and market studies.',
+    url: 'https://ribbondata.com/',
+  },
+  {
+    title: 'CHFA Rent & Income Limits',
+    description: 'Annual income limits and maximum rents by county for LIHTC and other affordable housing programs in Colorado, including rural resort community limits up to 160% AMI.',
+    url: 'https://www.chfainfo.com/rental-housing/asset-management/rent-income-limits',
+  },
+  {
+    title: 'LEHD Origin-Destination Employment Statistics',
+    description: 'Commuting flow data showing where workers live and work, essential for workforce housing analysis.',
+    url: 'https://lehd.ces.census.gov/',
+  },
+  {
+    title: 'Colorado LMI Gateway',
+    description: 'Labor market data for Colorado — occupational wages, employment projections, industry trends, and workforce analysis by region and county.',
+    url: 'https://www.colmigateway.com',
+  },
+];
+---
+
+<PageLayout
+  title="Resources"
+  description="Interactive tools and data sources for Colorado housing needs assessments, market studies, and housing research."
+>
+  <ImageHero title="Resources" subtitle={`"May your trails be crooked, winding, lonesome, dangerous, leading to the most amazing view." — Edward Abbey`} image={heroImage} />
+
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <!-- Interactive Tools -->
+    <div class="mb-20">
+      <h2 class="text-3xl font-serif font-bold text-bark mb-3">Interactive Tools</h2>
+      <p class="text-charcoal/80 mb-8 max-w-2xl">
+        Interactive tools and platforms we've built for clients and communities.
+      </p>
+      <div class="grid md:grid-cols-2 gap-8">
+        {interactiveTools.map((tool) => (
+          <Card class="flex flex-col">
+            <div class="p-8 flex flex-col flex-1">
+              <h3 class="text-xl font-serif font-bold text-bark mb-3">{tool.title}</h3>
+              <p class="text-charcoal/80 leading-relaxed mb-6 flex-1">{tool.description}</p>
+              {tool.url ? (
+                <Button href={tool.url} variant="outline" size="sm" target="_blank" rel="noopener noreferrer">
+                  View project &rarr;
+                </Button>
+              ) : (
+                <span class="text-sm text-ridge italic">Coming soon</span>
+              )}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+
+    <!-- Data Sources -->
+    <div>
+      <h2 class="text-3xl font-serif font-bold text-bark mb-3">Data Sources</h2>
+      <p class="text-lg text-charcoal/80 leading-relaxed mb-8">
+        Public data sources, funding programs, and policy tools we use in housing research and planning.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {dataSources.map((source) => (
+          <Card href={source.url} target="_blank" rel="noopener noreferrer">
+            <div class="p-6">
+              <h3 class="text-lg font-serif font-bold text-bark mb-2">{source.title}</h3>
+              <p class="text-sm text-charcoal/80 leading-relaxed">{source.description}</p>
+              <span class="inline-block mt-3 text-sm text-gold font-semibold">Visit &rarr;</span>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

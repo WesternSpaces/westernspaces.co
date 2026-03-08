@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/global/Header.astro';
+import Footer from '../components/global/Footer.astro';
+import HomeHero from '../components/sections/HomeHero.astro';
+import ServicesGrid from '../components/sections/ServicesGrid.astro';
+import StatsBar from '../components/sections/StatsBar.astro';
+import AboutPreview from '../components/sections/AboutPreview.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import CTABand from '../components/sections/CTABand.astro';
+---
+
+<BaseLayout
+  title="Western Spaces"
+  description="Colorado housing needs assessments, rural housing policy, and market studies for Mountain West communities. A housing research consultancy serving resort and rural towns across three states."
+>
+  <Header />
+  <main id="main-content">
+    <HomeHero />
+    <StatsBar />
+    <ServicesGrid />
+    <Testimonials testimonials={[
+      {
+        quote: "The Consultant Team has done an excellent job articulating the rental market, public housing, and the challenges of affordable housing in Hinsdale County and Lake City.",
+        name: "Arlene Gonzales",
+        title: "Lake City resident",
+      },
+    ]} />
+    <AboutPreview />
+<CTABand />
+  </main>
+  <Footer />
+</BaseLayout>

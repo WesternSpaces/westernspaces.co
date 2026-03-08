@@ -1,0 +1,19 @@
+---
+interface Props {
+  category: string;
+}
+
+const { category } = Astro.props;
+
+const colors: Record<string, string> = {
+  'housing-needs-assessment': 'bg-gold',
+  'housing-strategy': 'bg-sage',
+  'market-feasibility-analysis': 'bg-ridge',
+  'comprehensive-planning': 'bg-bark',
+  'policy-guidance': 'bg-sandstone',
+};
+
+const color = colors[category] || 'bg-ridge';
+---
+
+<div class={`${color} h-1.5`} />

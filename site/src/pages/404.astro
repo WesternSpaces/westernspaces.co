@@ -1,0 +1,17 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<PageLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist."
+>
+  <section class="max-w-2xl mx-auto px-6 py-32 text-center">
+    <h1 class="text-6xl font-serif font-bold text-bark mb-4">404</h1>
+    <p class="text-xl text-ridge mb-8">
+      This page doesn't exist — like affordable housing in some of the towns we study.
+    </p>
+    <Button href="/">Back Home</Button>
+  </section>
+</PageLayout>

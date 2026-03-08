@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import ImageHero from '../components/ui/ImageHero.astro';
+import Button from '../components/ui/Button.astro';
+import heroImage from '../assets/images/hero/theland.jpg';
+import profileImage from '../assets/images/about/profile.jpg';
+---
+
+<PageLayout
+  title="About"
+  description="Mountain West housing consultant specializing in rural housing policy, needs assessments, and strategic planning — led by Sarah Brown McClain, MURP, AICP."
+>
+  <ImageHero title="About" subtitle="Research rooted in place." image={heroImage} />
+
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-3 gap-16">
+      <!-- Main content -->
+      <div class="md:col-span-2">
+        <h2 class="text-3xl font-serif font-bold text-bark mb-6">About Western Spaces</h2>
+        <div class="space-y-4 text-charcoal/80 leading-relaxed">
+          <p class="text-lg italic text-ridge">
+            Analyze the Past &mdash; Understand Today &mdash; Plan for Tomorrow
+          </p>
+          <p>
+            Sarah Brown McClain, MURP, AICP, brings more than 20 years of housing policy and community planning experience to every project. She founded Western Spaces to provide rigorous, data-driven research for the rural and resort communities that are often hardest hit by housing shortages — and least likely to have in-house analytical capacity.
+          </p>
+          <p>
+            Our clients include local governments, housing authorities, community land trusts, regional councils of government, state agencies, and developers working to expand housing options in places where the market alone isn't meeting needs. We work across Colorado, New Mexico, Montana, and throughout the region.
+          </p>
+          <p>
+            Every project starts with the data and ends with a clear recommendation. We combine rigorous quantitative analysis — demographic projections, demand modeling, competitive supply inventories — with qualitative methods like community engagement and public workshops. The result is research that's defensible, actionable, and grounded in the places we study.
+          </p>
+          <p>
+            Before founding Western Spaces, Sarah began her career at RRC Associates conducting some of Colorado's earliest housing needs assessments in the mid-2000s — before HNAs were a required process. She went on to found Balanced Community, a firm focused on community engagement and web-based planning tools, and taught GIS and online mapping at CU Denver. That background shapes how we work today: alongside traditional analysis, we build interactive dashboards, automated data platforms, and digital engagement tools that give communities ongoing access to their own housing data.
+          </p>
+
+          <h3 class="text-2xl font-serif font-bold text-bark mt-10 mb-4">Philosophy</h3>
+          <p>
+            Community is at the heart of everything we do. Housing creates homes, homes establish roots, and roots build communities. When people can afford to live where they work, a community stays whole — diverse, connected, and economically resilient. When they can't, that fabric unravels. Neighbors leave, businesses struggle to staff, and the character of a place begins to hollow out.
+          </p>
+          <p>
+            That's why this work matters. It's not about units or data points — it's about making sure the places we love remain places where people can build a life. The best solutions come from honest conversation across differences — renters and homeowners, year-round residents and second-home owners, employers and local government sitting at the same table.
+          </p>
+          <p>
+            In practice, that means clear writing, honest data, and recommendations that account for local capacity and resources. Every community is different, and cookie-cutter approaches miss what matters most. We don't produce shelf documents — we design strategies and implementation processes that are realistic, measurable, and built on collaboration and accountability.
+          </p>
+
+          <h3 class="text-2xl font-serif font-bold text-bark mt-10 mb-4">Credentials</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Master of Urban and Regional Planning (MURP), University of Colorado Denver, 2006</li>
+            <li>BA Environmental Policy, University of Colorado Boulder, 1999</li>
+            <li>American Institute of Certified Planners (AICP)</li>
+            <li>20+ years in urban planning, housing policy, and community development</li>
+            <li>Rural and resort communities from 800 to 80,000 residents</li>
+          </ul>
+
+          <h3 class="text-2xl font-serif font-bold text-bark mt-10 mb-4">Affiliations</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Chaffee Housing Authority — Board of Directors (County Representative)</li>
+            <li>Colorado Farm to Table — Board Member</li>
+            <li>American Planning Association</li>
+            <li>Housing Colorado</li>
+          </ul>
+        </div>
+
+        <div class="mt-10">
+          <Button href="/contact">Work With Us</Button>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-8">
+        <Image
+          src={profileImage}
+          alt="Sarah Brown McClain"
+          class="rounded-lg w-full"
+          widths={[300, 500]}
+          sizes="(min-width: 768px) 300px, 100vw"
+          quality={80}
+        />
+
+        <div class="bg-parchment rounded-lg p-6">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-bark mb-3">Areas of Practice</h3>
+          <ul class="text-sm text-charcoal/80 space-y-2">
+            <li>Housing Needs Assessments</li>
+            <li>Housing Strategy, Code & Implementation</li>
+            <li>Market & Feasibility Analysis</li>
+            <li>Comprehensive Planning</li>
+            <li>Policy Guidance & Resources</li>
+            <li>Community Engagement</li>
+          </ul>
+        </div>
+
+        <div class="bg-parchment rounded-lg p-6">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-bark mb-3">Service Area</h3>
+          <p class="text-sm text-charcoal/80">
+            Colorado, New Mexico, Montana, and the broader Mountain West region.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>

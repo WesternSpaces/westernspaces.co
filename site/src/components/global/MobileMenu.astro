@@ -1,0 +1,88 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+  { href: '/resources', label: 'Resources' },
+  { href: '/contact', label: 'Contact' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<!-- Hamburger button -->
+<button
+  id="mobile-menu-btn"
+  class="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+>
+  <span class="hamburger-line block w-6 h-0.5 bg-bark transition-all origin-center"></span>
+  <span class="hamburger-line block w-6 h-0.5 bg-bark transition-all origin-center"></span>
+  <span class="hamburger-line block w-6 h-0.5 bg-bark transition-all origin-center"></span>
+</button>
+
+<!-- Mobile overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 bg-cream/98 backdrop-blur-sm flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300"
+  aria-hidden="true"
+>
+  <button
+    id="mobile-menu-close"
+    class="absolute top-6 right-6 w-8 h-8 flex items-center justify-center"
+    aria-label="Close menu"
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  </button>
+
+  {links.map(({ href, label }) => (
+    <a
+      href={href}
+      class:list={[
+        'text-2xl font-serif font-bold tracking-wide transition-colors',
+        isActive(href) ? 'text-gold' : 'text-bark hover:text-gold',
+      ]}
+    >
+      {label}
+    </a>
+  ))}
+</div>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const close = document.getElementById('mobile-menu-close');
+
+  function open() {
+    menu?.classList.remove('opacity-0', 'pointer-events-none');
+    menu?.setAttribute('aria-hidden', 'false');
+    btn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function shut() {
+    menu?.classList.add('opacity-0', 'pointer-events-none');
+    menu?.setAttribute('aria-hidden', 'true');
+    btn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  btn?.addEventListener('click', open);
+  close?.addEventListener('click', shut);
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).tagName === 'A') shut();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') shut();
+  });
+</script>

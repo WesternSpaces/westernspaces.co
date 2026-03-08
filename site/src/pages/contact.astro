@@ -1,0 +1,39 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ImageHero from '../components/ui/ImageHero.astro';
+import ContactForm from '../components/forms/ContactForm.astro';
+import heroImage from '../assets/images/hero/backcountry.jpg';
+---
+
+<PageLayout
+  title="Contact"
+  description="Get in touch about Colorado housing needs assessments, rural housing policy, market studies, or planning projects."
+>
+  <ImageHero title="Contact" subtitle={`"If you don't do it this year, you will be one year older when you do." — Warren Miller`} image={heroImage} />
+
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-3 gap-16">
+      <!-- Form -->
+      <div class="md:col-span-2">
+        <h2 class="text-2xl font-serif font-bold text-bark mb-6">Send a Message</h2>
+        <ContactForm />
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-8">
+        <div class="bg-parchment rounded-lg p-6">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-bark mb-3">Phone</h3>
+          <a href="tel:+19702753154" class="text-gold hover:underline">
+            970-275-3154
+          </a>
+        </div>
+
+        <div class="bg-parchment rounded-lg p-6">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-bark mb-3">Location</h3>
+          <p class="text-sm text-charcoal/80">Salida, Colorado</p>
+          <p class="text-sm text-charcoal/60 mt-1">Serving the Mountain West region</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>

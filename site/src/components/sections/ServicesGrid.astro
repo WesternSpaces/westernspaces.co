@@ -1,0 +1,55 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+
+const services = [
+  {
+    title: 'Housing Needs Assessments',
+    description: 'Statutory analyses combining demographic, economic, and housing data to quantify community-level housing gaps and inform policy.',
+    filter: 'housing-needs-assessment',
+  },
+  {
+    title: 'Housing Strategy, Code & Implementation',
+    description: 'Housing action plans, code assessments, and implementation strategies that translate data into locally appropriate policy tools.',
+    filter: 'housing-strategy',
+  },
+  {
+    title: 'Market & Feasibility Analysis',
+    description: 'Project-specific demand studies for affordable housing developments, supporting grant funding applications and program design.',
+    filter: 'market-feasibility-analysis',
+  },
+  {
+    title: 'Comprehensive Planning',
+    description: 'Housing elements and comprehensive plans connecting housing action plans with land use, transportation, economic development, and other strategic growth elements.',
+    filter: 'comprehensive-planning',
+  },
+  {
+    title: 'Policy Guidance & Resources',
+    description: 'Statewide guidance development, technical assistance, compliance support, and training for housing programs and legislation.',
+    filter: 'policy-guidance',
+  },
+  {
+    title: 'Community Engagement',
+    description: 'Community workshops, working group facilitation, and public input processes grounded in local priorities, funding realities, and organizational capacity.',
+    filter: 'all',
+  },
+];
+---
+
+<section class="bg-cream py-12 md:py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <SectionHeading
+      tag="What We Do"
+      title="Services"
+      subtitle="Research that moves housing forward."
+    />
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {services.map((service) => (
+        <a href={`/projects?filter=${service.filter}`} class="bg-snow rounded-lg p-8 border border-parchment hover:shadow-sm transition-shadow block">
+          <h3 class="text-lg font-serif font-bold text-bark mb-2">{service.title}</h3>
+          <p class="text-base text-charcoal/80 leading-relaxed">{service.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

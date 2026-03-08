@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Card from '../ui/Card.astro';
+import Tag from '../ui/Tag.astro';
+import Button from '../ui/Button.astro';
+import CategoryBand from '../ui/CategoryBand.astro';
+
+const allProjects = await getCollection('projects');
+const featured = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+---
+
+<section class="bg-parchment py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-6">
+    <SectionHeading
+      tag="Our Work"
+      title="Featured Projects"
+      subtitle="Recent housing research across the Mountain West."
+    />
+
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+      {featured.map((project) => (
+        <Card href={`/projects/${project.id}`}>
+          <CategoryBand category={project.data.category} />
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <Tag>{project.data.category.replace(/-/g, ' ')}</Tag>
+              <span class="text-xs text-ridge">{project.data.year}</span>
+            </div>
+            <h3 class="text-xl font-serif font-bold text-bark mb-2">{project.data.title}</h3>
+            <p class="text-sm text-charcoal/80 leading-relaxed mb-3">{project.data.summary}</p>
+            <p class="text-xs text-ridge">{project.data.location}</p>
+          </div>
+        </Card>
+      ))}
+    </div>
+
+    <div class="text-center">
+      <Button href="/projects" variant="outline">View All Projects</Button>
+    </div>
+  </div>
+</section>

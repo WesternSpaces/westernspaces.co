@@ -1,0 +1,89 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Colors — earth tones */
+  --color-cream: #FAF6F0;
+  --color-parchment: #F0E8DA;
+  --color-sandstone: #C4956A;
+  --color-sage: #7A8B6F;
+  --color-clay: #8B5E3C;
+  --color-bark: #3D2B1F;
+  --color-charcoal: #2C2C2C;
+  --color-ridge: #5C4A3A;
+  --color-gold: #C8A24D;
+  --color-snow: #FFFFFF;
+
+  /* Fonts */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Sans 3', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Extend typography scale for headings */
+  --font-size-5xl: 3rem;
+  --font-size-5xl--line-height: 1.1;
+  --font-size-6xl: 3.75rem;
+  --font-size-6xl--line-height: 1.05;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-charcoal);
+    background-color: var(--color-cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--color-bark);
+  }
+
+  a {
+    color: var(--color-gold);
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s;
+  }
+
+  a:hover {
+    text-decoration-color: var(--color-gold);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sandstone);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-sandstone);
+    color: var(--color-snow);
+  }
+}
+
+/* Prose overrides for MDX content */
+.prose {
+  --tw-prose-body: var(--color-charcoal);
+  --tw-prose-headings: var(--color-bark);
+  --tw-prose-links: var(--color-gold);
+  --tw-prose-bold: var(--color-bark);
+  --tw-prose-quotes: var(--color-ridge);
+  --tw-prose-quote-borders: var(--color-sandstone);
+  --tw-prose-counters: var(--color-ridge);
+  --tw-prose-bullets: var(--color-sandstone);
+  --tw-prose-hr: var(--color-parchment);
+  --tw-prose-th-borders: var(--color-ridge);
+  --tw-prose-td-borders: var(--color-parchment);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-serif);
+}

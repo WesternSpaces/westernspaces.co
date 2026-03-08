@@ -1,0 +1,17 @@
+---
+import { Image } from 'astro:assets';
+import wsLogo from '../../assets/images/logo/ws-logo.png';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<a href="/" class:list={['flex items-center gap-2 group', className]} aria-label="Western Spaces home">
+  <Image src={wsLogo} alt="" width={144} height={126} class="h-8 w-auto" />
+  <span class="font-serif text-2xl font-bold text-bark tracking-tight group-hover:text-gold transition-colors">
+    Western Spaces
+  </span>
+</a>

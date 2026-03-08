@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ImageHero from '../../components/ui/ImageHero.astro';
+import Card from '../../components/ui/Card.astro';
+import Tag from '../../components/ui/Tag.astro';
+import CategoryBand from '../../components/ui/CategoryBand.astro';
+import heroImage from '../../assets/images/hero/bighorn.jpg';
+
+const allProjects = await getCollection('projects');
+const sorted = allProjects.sort((a, b) => b.data.year - a.data.year);
+const featured = sorted.filter((p) => p.data.featured).slice(0, 3);
+const projects = sorted;
+
+const categories = [
+  { value: 'all', label: 'All' },
+  { value: 'housing-needs-assessment', label: 'Housing Needs Assessments' },
+  { value: 'housing-strategy', label: 'Housing Strategy' },
+  { value: 'market-feasibility-analysis', label: 'Market & Feasibility' },
+  { value: 'comprehensive-planning', label: 'Comprehensive Planning' },
+  { value: 'policy-guidance', label: 'Policy & Technical Assistance' },
+];
+---
+
+<PageLayout
+  title="Projects"
+  description="Colorado housing needs assessment projects, market studies, and housing action plans across the Mountain West."
+>
+  <ImageHero title="Projects" subtitle="Housing research and planning across the Mountain West." image={heroImage} imagePosition="60% 65%" />
+
+  <!-- Featured projects -->
+  <section class="bg-parchment py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl font-serif font-bold text-bark mb-8">Featured</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {featured.map((project) => (
+          <Card href={`/projects/${project.id}`}>
+            <CategoryBand category={project.data.category} />
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <Tag>{project.data.category.replace(/-/g, ' ')}</Tag>
+                <span class="text-sm text-ridge">{project.data.ongoing ? `${project.data.year}–present` : project.data.year2 ? `${project.data.year}–${project.data.year2}` : project.data.year}</span>
+              </div>
+              <h3 class="text-xl font-serif font-bold text-bark mb-2">{project.data.title}</h3>
+              <p class="text-base text-charcoal/80 leading-relaxed mb-3">{project.data.summary}</p>
+              <p class="text-sm text-ridge">{project.data.location}</p>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All projects -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <p class="text-lg text-charcoal/80 leading-relaxed mb-10">
+      A selection of recent work — from statutory housing needs assessments and development-specific market studies to housing action plans and statewide policy guidance.
+    </p>
+    <!-- Category filter -->
+    <div class="flex flex-wrap gap-2 mb-12" id="project-filters">
+      {categories.map(({ value, label }) => (
+        <button
+          data-filter={value}
+          class:list={[
+            'px-4 py-2 text-sm font-semibold rounded-full transition-colors',
+            value === 'all'
+              ? 'bg-gold text-snow'
+              : 'bg-parchment text-ridge hover:bg-sandstone/20',
+          ]}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Project grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="project-grid">
+      {projects.map((project) => (
+        <Card href={`/projects/${project.id}`} class="project-card" data-category={project.data.category}>
+          <CategoryBand category={project.data.category} />
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <Tag>{project.data.category.replace(/-/g, ' ')}</Tag>
+              <span class="text-sm text-ridge">{project.data.ongoing ? `${project.data.year}–present` : project.data.year2 ? `${project.data.year}–${project.data.year2}` : project.data.year}</span>
+            </div>
+            <h3 class="text-xl font-serif font-bold text-bark mb-2">{project.data.title}</h3>
+            <p class="text-base text-charcoal/80 leading-relaxed mb-3">{project.data.summary}</p>
+            <p class="text-sm text-ridge">{project.data.location}</p>
+          </div>
+        </Card>
+      ))}
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  const filters = document.getElementById('project-filters');
+  const cards = document.querySelectorAll('.project-card');
+
+  function applyFilter(filter: string) {
+    if (!filters) return;
+
+    // Update active button
+    filters.querySelectorAll('[data-filter]').forEach((b) => {
+      b.classList.remove('bg-gold', 'text-snow');
+      b.classList.add('bg-parchment', 'text-ridge');
+    });
+    const activeBtn = filters.querySelector(`[data-filter="${filter}"]`);
+    if (activeBtn) {
+      activeBtn.classList.remove('bg-parchment', 'text-ridge');
+      activeBtn.classList.add('bg-gold', 'text-snow');
+    }
+
+    // Filter cards
+    cards.forEach((card) => {
+      const el = card as HTMLElement;
+      if (filter === 'all' || el.dataset.category === filter) {
+        el.style.display = '';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  }
+
+  // Apply filter from URL param on load
+  const urlFilter = new URLSearchParams(window.location.search).get('filter');
+  if (urlFilter && urlFilter !== 'all') {
+    applyFilter(urlFilter);
+  }
+
+  filters?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-filter]') as HTMLElement;
+    if (!btn) return;
+    applyFilter(btn.dataset.filter || 'all');
+  });
+</script>
