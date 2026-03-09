@@ -5,7 +5,7 @@ import ImageHero from '../../components/ui/ImageHero.astro';
 import Card from '../../components/ui/Card.astro';
 import Tag from '../../components/ui/Tag.astro';
 import CategoryBand from '../../components/ui/CategoryBand.astro';
-import heroImage from '../../assets/images/hero/bighorn.jpg';
+import heroImage from '../../assets/images/hero/fall-lake.jpg';
 
 const allProjects = await getCollection('projects');
 const sorted = allProjects.sort((a, b) => b.data.year - a.data.year);
@@ -26,7 +26,7 @@ const categories = [
   title="Projects"
   description="Colorado housing needs assessment projects, market studies, and housing action plans across the Mountain West."
 >
-  <ImageHero title="Projects" subtitle="Housing research and planning across the Mountain West." image={heroImage} imagePosition="60% 65%" />
+  <ImageHero title="Projects" subtitle="Housing research and planning across the Mountain West." image={heroImage} imagePosition="center 40%" />
 
   <!-- Featured projects -->
   <section class="bg-parchment py-10 md:py-16">
